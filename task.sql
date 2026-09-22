@@ -9,6 +9,12 @@ CREATE TABLE Countries (
     PRIMARY KEY (ID)
 );
 
+CREATE TABLE Product (
+    ID INT,
+    ProductName VARCHAR(50),
+    PRIMARY KEY (ID)
+);
+
 CREATE TABLE Warehouse (
     ID INT,
     WarehouseName VARCHAR(50),
@@ -20,11 +26,12 @@ CREATE TABLE Warehouse (
 
 CREATE TABLE ProductInventory (
     ID INT,
-    ProductName VARCHAR(50),
+    ProductID INT,
     WarehouseAmount INT,
     WarehouseID INT,
     PRIMARY KEY (ID),
-    FOREIGN KEY (WarehouseID) references Warehouse(ID) on delete NO ACTION
+    FOREIGN KEY (WarehouseID) references Warehouse(ID) on delete NO ACTION,
+    FOREIGN KEY (ProductID) references Product(ID) on delete NO ACTION
 );
 
 -- Populate test data
@@ -39,8 +46,10 @@ INSERT INTO Warehouse (ID, WarehouseName, WarehouseAddress, CountryID)
 INSERT INTO Warehouse (ID, WarehouseName, WarehouseAddress, CountryID)
 	VALUES (2, 'Warehouse-2', 'City-2, Street-2', 2);
 
-    
-INSERT INTO ProductInventory (ID,ProductName,WarehouseAmount, WarehouseID)
-	VALUES (1, 'AwersomeProduct', 2, 1);
-INSERT INTO ProductInventory (ID,ProductName,WarehouseAmount,WarehouseName,WarehouseAddress,CountryID)
-	VALUES (2, 'AwersomeProduct', 5, 2);
+INSERT INTO Product (ID, ProductName)
+	VALUES (1, 'AwersomeProduct');
+
+INSERT INTO ProductInventory (ID,ProductID,WarehouseAmount, WarehouseID)
+	VALUES (1, 1, 2, 1);
+INSERT INTO ProductInventory (ID,ProductID,WarehouseAmount, WarehouseID)
+	VALUES (2, 1, 5, 2);
